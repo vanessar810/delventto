@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
+import { 
+  FaBed, FaShower, FaWifi, FaSnowflake, FaTv, FaParking, 
+  FaSwimmingPool, FaDog, FaDumbbell, FaBan, FaPhone, FaWhatsapp,
+  FaTelegram, FaInstagram, FaMapMarkerAlt, FaWind 
+} from 'react-icons/fa';
+import { MdKitchen, MdBalcony, MdBeachAccess, MdLocalLaundryService} from 'react-icons/md';
+import { GiWashingMachine, GiWaves} from 'react-icons/gi';
+import { IoMdPlayCircle } from 'react-icons/io';
+import { PiHairDryerBold  } from "react-icons/pi";
+import { IoLogoNoSmoking } from "react-icons/io5";
 
 import img1 from './assets/images/1.png';
 import img2 from './assets/images/2.png';
@@ -27,7 +37,7 @@ function App() {
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
 
   const apartmentData = {
-    name: "Apartamento Delventto",
+    name: "Apartamento en Santa Marta",
     images: [
       img1, img2, img3, img4, img5, 
       img6, img7, img8, img9, img10,
@@ -35,14 +45,29 @@ function App() {
       img16, img17, img18, img19, img20
     ],
     services: [
-      { icon: "🛏️", name: "2 Habitaciones" },
-      { icon: "🚿", name: "2 Baños" },
-      { icon: "📶", name: "WiFi Gratis" },
-      { icon: "❄️", name: "Aire Acondicionado" },
-      { icon: "🍳", name: "Cocina Equipada" },
-      { icon: "📺", name: "TV Cable" },
-      { icon: "🅿️", name: "Estacionamiento" },
-      { icon: "🏊", name: "Piscina" }
+      { icon: <FaBed />, name: <>2 Camas <br />4 Personas</> },
+      { icon: <FaShower />, name: "Baño privado" },
+      { icon: <FaWifi />, name: "WiFi" },
+      { icon: <FaSnowflake />, name: "Aire Acondicionado" },
+      { icon: <MdKitchen />, name: "Cocina Equipada" },
+      { icon: <FaTv />, name: "Televisión" },
+      { icon: <FaParking />, name: "Parqueadero" },
+      // { icon: <FaSwimmingPool />, name: "Piscina" },
+      // { icon: <GiWashingMachine />, name: "Lavadora" },
+      // { icon: <IoMdPlayCircle />, name: "Parque Infantil" },
+      { icon: <FaDog />, name: "Mascotas Permitidas" },
+      // { icon: <FaDumbbell />, name: "Gimnasio" },
+      { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
+      { icon: <MdBalcony />, name: "Balcón" },
+      // { icon: <GiWaves />, name: "Vista al Mar" },
+      { icon: <MdBeachAccess />, name: "Cerca de la Playa" },
+      { icon: <FaMapMarkerAlt />, name: "Ubicación Privilegiada" },
+      // { icon: <FaPhone />, name: "Teléfono" },
+      // { icon: <FaWhatsapp />, name: "WhatsApp" },
+      // { icon: <FaTelegram />, name: "Telegram" },
+      // { icon: <FaInstagram />, name: "Instagram" },
+      { icon: <MdLocalLaundryService />, name: "Lavaplatos" },
+      { icon: <PiHairDryerBold  />, name: "Secador de Cabello" },
     ],
     location: {
       address: "Calle Principal #123, Santa Marta",
@@ -86,7 +111,7 @@ function App() {
       <section className="hero-section">
         <div className="container">
           <h1 className="apartment-name">{apartmentData.name}</h1>
-          <p className="apartment-subtitle">Tu hogar ideal te espera</p>
+          <p className="apartment-subtitle">A solo 2 minutos de las tranquilas playas de Cabo Tortuga.</p>
         </div>
       </section>
 
