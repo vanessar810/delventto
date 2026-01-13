@@ -124,16 +124,22 @@ body {
 }
 
 .thumbnails-container {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   width: 100%;
   max-width: 900px;
   padding: 10px;
 }
 
+.thumbnails-container::-webkit-scrollbar {
+  display: none;
+}
+
 .thumbnails {
   display: flex;
   gap: 15px;
-  transition: transform 0.3s ease;
 }
 
 .thumbnail {

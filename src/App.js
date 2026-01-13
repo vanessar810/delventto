@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { 
   FaBed, FaShower, FaWifi, FaSnowflake, FaTv, FaParking, 
   FaSwimmingPool, FaDog, FaDumbbell, FaBan, FaPhone, FaWhatsapp,
-  FaTelegram, FaInstagram, FaMapMarkerAlt, FaWind 
+  FaTelegram, FaInstagram, FaMapMarkerAlt, FaWind, FaSpa 
 } from 'react-icons/fa';
 import { MdKitchen, MdBalcony, MdBeachAccess, MdLocalLaundryService} from 'react-icons/md';
-import { GiWashingMachine, GiWaves} from 'react-icons/gi';
+import { GiWashingMachine, GiWaves } from 'react-icons/gi';
 import { IoMdPlayCircle } from 'react-icons/io';
 import { PiHairDryerBold  } from "react-icons/pi";
 import { IoLogoNoSmoking } from "react-icons/io5";
@@ -43,6 +43,7 @@ import img27 from './assets/images/27.png';
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
+  const thumbnailsContainerRef = useRef(null);
 
   const apartmentData = {
     name: "Apartamento en Santa Marta",
@@ -59,11 +60,12 @@ function App() {
       { icon: <MdKitchen />, name: "Cocina Equipada" },
       { icon: <FaTv />, name: "Televisión" },
       { icon: <FaParking />, name: "Parqueadero" },
-      // { icon: <FaSwimmingPool />, name: "Piscina" },
+      { icon: <FaSwimmingPool />, name: "Piscina" },
       // { icon: <GiWashingMachine />, name: "Lavadora" },
       // { icon: <IoMdPlayCircle />, name: "Parque Infantil" },
       { icon: <FaDog />, name: "Mascotas Permitidas" },
-      // { icon: <FaDumbbell />, name: "Gimnasio" },
+      { icon: <FaDumbbell />, name: "Gimnasio" },
+      { icon: <FaSpa />, name: "Sauna" },
       { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
       { icon: <MdBalcony />, name: "Balcón" },
       // { icon: <GiWaves />, name: "Vista al Mar" },
@@ -99,14 +101,52 @@ function App() {
     setCurrentImageIndex(index);
   };
 
-  const scrollThumbnails = (direction) => {
-    const scrollAmount = 420;
-    setThumbnailScroll(prev => {
-      const newScroll = direction === 'left' ? prev - scrollAmount : prev + scrollAmount;
-      const maxScroll = (apartmentData.images.length * 135) - 900;
-      return Math.max(0, Math.min(newScroll, maxScroll));
-    });
+  const getMaxScroll = () => {
+    const container = thumbnailsContainerRef.current;
+    if (!container) return 0;
+    return Math.max(0, container.scrollWidth - container.clientWidth);
   };
+
+  const scrollThumbnails = (direction) => {
+    const container = thumbnailsContainerRef.current;
+    if (!container) return;
+    const scrollAmount = container.clientWidth * 0.8;
+    const target = direction === 'left'
+      ? container.scrollLeft - scrollAmount
+      : container.scrollLeft + scrollAmount;
+    const clamped = Math.max(0, Math.min(target, getMaxScroll()));
+    container.scrollTo({ left: clamped, behavior: 'smooth' });
+    setThumbnailScroll(clamped);
+  };
+
+  const handleThumbnailScroll = (e) => {
+    setThumbnailScroll(e.target.scrollLeft);
+  };
+
+  useEffect(() => {
+    const container = thumbnailsContainerRef.current;
+    if (!container) return;
+    const active = container.querySelector('.thumbnail.active');
+    if (!active) return;
+    const target = active.offsetLeft - (container.clientWidth / 2) + (active.offsetWidth / 2);
+    const clamped = Math.max(0, Math.min(target, getMaxScroll()));
+    container.scrollTo({ left: clamped, behavior: 'smooth' });
+    setThumbnailScroll(clamped);
+  }, [currentImageIndex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const container = thumbnailsContainerRef.current;
+      if (!container) return;
+      const max = Math.max(0, container.scrollWidth - container.clientWidth);
+      if (container.scrollLeft > max) {
+        container.scrollLeft = max;
+        setThumbnailScroll(max);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleWhatsAppClick = () => {
     const url = `https://wa.me/${apartmentData.location.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(apartmentData.location.whatsappMessage)}`;
@@ -142,10 +182,9 @@ function App() {
             >
               ❮
             </button>
-            <div className="thumbnails-container">
+            <div className="thumbnails-container" ref={thumbnailsContainerRef} onScroll={handleThumbnailScroll}>
               <div 
                 className="thumbnails" 
-                style={{ transform: `translateX(-${thumbnailScroll}px)` }}
               >
                 {apartmentData.images.map((image, index) => (
                   <div 
@@ -161,7 +200,7 @@ function App() {
             <button 
               className="thumbnail-nav-btn right" 
               onClick={() => scrollThumbnails('right')}
-              disabled={thumbnailScroll >= (apartmentData.images.length * 135) - 900}
+              disabled={thumbnailScroll >= getMaxScroll() - 1}
             >
               ❯
             </button>
