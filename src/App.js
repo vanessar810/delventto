@@ -79,7 +79,7 @@ function App() {
     location: {
       address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
       phone: "+57 304 117 51 18",
-      whatsappMessage: "Hola, estoy interesado en el Apartamento Delventto"
+      whatsappMessage: "Hola!, estoy interesado en el alquiler del apartamento en Santa Marta"
     }
   };
 
@@ -205,7 +205,7 @@ function App() {
       </section>
 
       <footer className="footer">
-        <p>&copy; 2025 Delventto. Todos los derechos reservados.</p>
+        <p> Todos los derechos reservados &copy; 2025</p>
       </footer>
     </div>
   );
