@@ -54,9 +54,22 @@ import img39 from './assets/images/39.jpeg';
 import img40 from './assets/images/40.jpeg';
 import img41 from './assets/images/41.jpeg';
 
+const decode = (b64) =>
+  typeof window === 'undefined'
+    ? atob(b64)
+    : decodeURIComponent(
+        Array.prototype.map
+          .call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+
+const PHONE_B64 = 'KzU3MzA0MTE3NTExOA==';
+const MSG_B64 = 'SG9sYSwgZXN0b3kgaW50ZXJlc2FkbyBlbiBlbCBBcGFydGFtZW50byBEZWx2ZW50dG8=';
+
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
+  const [isSecureModalOpen, setIsSecureModalOpen] = useState(false);
   const thumbnailsContainerRef = useRef(null);
   const touchStartX = useRef(null);
 
@@ -111,8 +124,8 @@ function App() {
     ],
     location: {
       address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
-      phone: "+57 304 117 51 18",
-      whatsappMessage: "Hola, estoy interesado en el Apartamento Delventto"
+      phone: decode(PHONE_B64),
+      whatsappMessage: decode(MSG_B64)
     }
   };
 
@@ -180,8 +193,15 @@ function App() {
   }, []);
 
   const handleWhatsAppClick = () => {
+    setIsSecureModalOpen(true);
+  };
+
+  const closeSecureModal = () => setIsSecureModalOpen(false);
+
+  const openWhatsApp = () => {
     const url = `https://wa.me/${apartmentData.location.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(apartmentData.location.whatsappMessage)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
+    setIsSecureModalOpen(false);
   };
 
   return (
@@ -277,6 +297,26 @@ function App() {
       <footer className="footer">
         <p>&copy; 2025 Delventto. Todos los derechos reservados.</p>
       </footer>
+
+      {isSecureModalOpen && (
+        <div className="secure-modal-overlay" onClick={closeSecureModal}>
+          <div className="secure-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="secure-modal-close" onClick={closeSecureModal} aria-label="Cerrar">&times;</button>
+            <h3 className="secure-modal-title">Verifica el contacto oficial</h3>
+            <p className="secure-modal-subtitle">Verify the official contact</p>
+            <div className="secure-modal-warnings">
+              <p><strong>⚠️ Antiestafa / Anti-scam:</strong></p>
+              <ul>
+                <li>Delventto nunca solicitará pagos por anticipado ni transferencias a terceros.<br/><em>Delventto will never request advance payments or transfers to third parties.</em></li>
+              </ul>
+            </div>
+            <div className="secure-modal-actions">
+              <button className="secure-modal-btn secure-modal-cancel" onClick={closeSecureModal}>Cancelar / Cancel</button>
+              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar a WhatsApp</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
