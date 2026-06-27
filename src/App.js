@@ -40,6 +40,20 @@ import img25 from './assets/images/25.png';
 import img26 from './assets/images/26.png';
 import img27 from './assets/images/27.png';
 
+// Zonas Comunes
+
+import img30 from './assets/images/30.webp';
+import img32 from './assets/images/32.webp';
+import img33 from './assets/images/33.webp';
+import img34 from './assets/images/34.webp';
+import img35 from './assets/images/35.webp';
+import img36 from './assets/images/36.webp';
+import img37 from './assets/images/37.webp';
+import img38 from './assets/images/38.webp';
+import img39 from './assets/images/39.jpeg';
+import img40 from './assets/images/40.jpeg';
+import img41 from './assets/images/41.jpeg';
+
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
@@ -50,7 +64,9 @@ function App() {
     images: [
       img1, img2, img3, img4, img6, 
       img6, img9, img10, img13, img14, img15,
-      img16, img18, img19, img20, img21 , img22, img23,img25,img26,img27
+      img16, img18, img19, img20, img21 , img22, img23,img25,img26,img27,
+      // Zonas Comunes
+      img30,img32,img33,img34,img35,img36,img37,img38,img39,img40,img41
     ],
     services: [
       { icon: <FaBed />, name: <>2 Camas <br />4 Personas</> },
