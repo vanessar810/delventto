@@ -76,6 +76,7 @@ body {
   border-radius: 16px;
   box-shadow: 0 15px 40px rgba(0, 131, 176, 0.25);
   transition: transform 0.3s ease;
+  touch-action: pan-y;
 }
 
 .main-image:hover {

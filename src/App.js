@@ -58,6 +58,22 @@ function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
   const thumbnailsContainerRef = useRef(null);
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    if (deltaX < -50) {
+      nextImage();
+    } else if (deltaX > 50) {
+      prevImage();
+    }
+    touchStartX.current = null;
+  };
 
   const apartmentData = {
     name: "Apartamento en Santa Marta",
@@ -182,7 +198,7 @@ function App() {
         <div className="container">
           <div className="gallery-container">
             <button className="gallery-btn prev" onClick={prevImage}>❮</button>
-            <div className="main-image">
+            <div className="main-image" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <img 
                 src={apartmentData.images[currentImageIndex]} 
                 alt={`Apartamento ${currentImageIndex + 1}`}
