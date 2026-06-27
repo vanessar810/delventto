@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { 
-  FaBed, FaShower, FaWifi, FaSnowflake, FaTv, FaParking, 
-  FaSwimmingPool, FaDog, FaDumbbell, FaBan, FaPhone, FaWhatsapp,
-  FaTelegram, FaInstagram, FaMapMarkerAlt, FaWind, FaSpa 
+import {
+  FaBed, FaShower, FaWifi, FaSnowflake, FaTv,
+  FaDog, FaMapMarkerAlt
 } from 'react-icons/fa';
-import { MdKitchen, MdBalcony, MdBeachAccess, MdLocalLaundryService} from 'react-icons/md';
-import { GiWashingMachine, GiWaves } from 'react-icons/gi';
-import { IoMdPlayCircle } from 'react-icons/io';
+import { MdKitchen, MdBalcony, MdLocalLaundryService} from 'react-icons/md';
 import { PiHairDryerBold  } from "react-icons/pi";
 import { IoLogoNoSmoking } from "react-icons/io5";
-import { FaWaze } from "react-icons/fa";
 
 import img1 from './assets/images/1.png';
 import img2 from './assets/images/2.png';
@@ -96,31 +92,34 @@ function App() {
       // Zonas Comunes
       img30,img32,img33,img34,img35,img36,img37,img38,img39,img40,img41
     ],
-    services: [
+    roomServices: [
       { icon: <FaBed />, name: <>2 Camas <br />4 Personas</> },
       { icon: <FaShower />, name: "Baño privado" },
       { icon: <FaWifi />, name: "WiFi" },
       { icon: <FaSnowflake />, name: "Aire Acondicionado" },
       { icon: <MdKitchen />, name: "Cocina Equipada" },
       { icon: <FaTv />, name: "Televisión" },
-      { icon: <FaParking />, name: "Parqueadero" },
-      { icon: <FaSwimmingPool />, name: "Piscina" },
-      // { icon: <GiWashingMachine />, name: "Lavadora" },
-      // { icon: <IoMdPlayCircle />, name: "Parque Infantil" },
-      { icon: <FaDog />, name: "Mascotas Permitidas" },
-      { icon: <FaDumbbell />, name: "Gimnasio" },
-      { icon: <FaSpa />, name: "Sauna" },
-      { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
       { icon: <MdBalcony />, name: "Balcón" },
-      // { icon: <GiWaves />, name: "Vista al Mar" },
-      { icon: <MdBeachAccess />, name: "Cerca de la Playa" },
-      { icon: <FaMapMarkerAlt />, name: "Ubicación Privilegiada" },
-      // { icon: <FaPhone />, name: "Teléfono" },
-      // { icon: <FaWhatsapp />, name: "WhatsApp" },
-      // { icon: <FaTelegram />, name: "Telegram" },
-      // { icon: <FaInstagram />, name: "Instagram" },
       { icon: <MdLocalLaundryService />, name: "Lavaplatos" },
       { icon: <PiHairDryerBold  />, name: "Secador de Cabello" },
+      { icon: <FaDog />, name: "Mascotas Permitidas" },
+      { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
+    ],
+    familyServices: [
+      "Gimnasio",
+      "Parqueadero",
+      "Piscina para adultos y adolescentes",
+      "Parque acuático para niños",
+      "Piscina para niños y bebés",
+      "Zona de juegos infantiles",
+      "Jacuzzi",
+      "Spa",
+      "Baño turco y sauna",
+      "Barbacoa",
+      "Pista de squash",
+      "Zona de ping-pong",
+      "Mesa de juegos y mesa de billar",
+      "Salón social",
     ],
     location: {
       address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
@@ -262,12 +261,21 @@ function App() {
       <section className="services-section">
         <div className="container">
           <h2>Servicios y Comodidades</h2>
+
+          <h3 className="services-subtitle">Servicios de Habitación</h3>
           <div className="services-grid">
-            {apartmentData.services.map((service, index) => (
+            {apartmentData.roomServices.map((service, index) => (
               <div key={index} className="service-card">
                 <span className="service-icon">{service.icon}</span>
                 <p className="service-name">{service.name}</p>
               </div>
+            ))}
+          </div>
+
+          <h3 className="services-subtitle">Amenidades del Conjunto</h3>
+          <div className="family-services">
+            {apartmentData.familyServices.map((item, index) => (
+              <div key={index} className="family-service-item">{item}</div>
             ))}
           </div>
         </div>
@@ -295,24 +303,24 @@ function App() {
       </section>
 
       <footer className="footer">
-        <p>&copy; 2025 Delventto. Todos los derechos reservados.</p>
+        <p>&copy; 2026 Delventto. Todos los derechos reservados.</p>
       </footer>
 
       {isSecureModalOpen && (
         <div className="secure-modal-overlay" onClick={closeSecureModal}>
           <div className="secure-modal" onClick={(e) => e.stopPropagation()}>
             <button className="secure-modal-close" onClick={closeSecureModal} aria-label="Cerrar">&times;</button>
-            <h3 className="secure-modal-title">Verifica el contacto oficial</h3>
-            <p className="secure-modal-subtitle">Verify the official contact</p>
+            <h3 className="secure-modal-title">Advertencia</h3>
+            <p className="secure-modal-subtitle">Warning</p>
             <div className="secure-modal-warnings">
               <p><strong>⚠️ Antiestafa / Anti-scam:</strong></p>
               <ul>
-                <li>Delventto nunca solicitará pagos por anticipado ni transferencias a terceros.<br/><em>Delventto will never request advance payments or transfers to third parties.</em></li>
+                <li>Nunca se solicitarán pagos por anticipado.<br/><em>No advance payments will be requested.</em></li>
               </ul>
             </div>
             <div className="secure-modal-actions">
               <button className="secure-modal-btn secure-modal-cancel" onClick={closeSecureModal}>Cancelar / Cancel</button>
-              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar a WhatsApp</button>
+              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar / Continue</button>
             </div>
           </div>
         </div>
