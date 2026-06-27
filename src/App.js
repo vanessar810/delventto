@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { 
-  FaBed, FaShower, FaWifi, FaSnowflake, FaTv, FaParking, 
-  FaSwimmingPool, FaDog, FaDumbbell, FaBan, FaPhone, FaWhatsapp,
-  FaTelegram, FaInstagram, FaMapMarkerAlt, FaWind, FaSpa 
+import {
+  FaBed, FaShower, FaWifi, FaSnowflake, FaTv,
+  FaDog, FaMapMarkerAlt
 } from 'react-icons/fa';
-import { MdKitchen, MdBalcony, MdBeachAccess, MdLocalLaundryService} from 'react-icons/md';
-import { GiWashingMachine, GiWaves } from 'react-icons/gi';
-import { IoMdPlayCircle } from 'react-icons/io';
+import { MdKitchen, MdBalcony, MdLocalLaundryService} from 'react-icons/md';
 import { PiHairDryerBold  } from "react-icons/pi";
 import { IoLogoNoSmoking } from "react-icons/io5";
-import { FaWaze } from "react-icons/fa";
 
 import img1 from './assets/images/1.png';
 import img2 from './assets/images/2.png';
@@ -26,7 +22,7 @@ import img10 from './assets/images/10.png';
 // import img12 from './assets/images/12.png';
 import img13 from './assets/images/13.png';
 import img14 from './assets/images/14.png';
-import img15 from './assets/images/15.png';
+// import img15 from './assets/images/15.png';
 import img16 from './assets/images/16.png';
 // import img17 from './assets/images/17.png';
 import img18 from './assets/images/18.png';
@@ -66,12 +62,106 @@ const decode = (b64) =>
 const PHONE_B64 = 'KzU3MzA0MTE3NTExOA==';
 const MSG_B64 = 'SG9sYSwgZXN0b3kgaW50ZXJlc2FkbyBlbiBlbCBBcGFydGFtZW50byBEZWx2ZW50dG8=';
 
+const translations = {
+  es: {
+    apartmentName: "Apartamento en Santa Marta",
+    subtitle: "A solo 2 minutos de las tranquilas playas de Cabo Tortuga",
+    galleryAlt: (i) => `Apartamento ${i + 1}`,
+    thumbAlt: (i) => `Miniatura ${i + 1}`,
+    servicesTitle: "Servicios y Comodidades",
+    roomServicesTitle: "Servicios de Habitación",
+    familyServicesTitle: "Amenidades del Conjunto",
+    contactTitle: "Ubicación y Contacto",
+    whatsappBtn: "Reservar por WhatsApp",
+    footer: "Todos los derechos reservados.",
+    address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
+    modalTitle: "Advertencia",
+    modalWarning: "⚠️ Antiestafa:",
+    modalWarningText: "Nunca se solicitarán pagos por anticipado.",
+    modalCancel: "Cancelar",
+    modalContinue: "Continuar",
+    roomServices: [
+      { icon: <FaBed />, name: <>2 Camas <br />4 Personas</> },
+      { icon: <FaShower />, name: "Baño privado" },
+      { icon: <FaWifi />, name: "WiFi" },
+      { icon: <FaSnowflake />, name: "Aire Acondicionado" },
+      { icon: <MdKitchen />, name: "Cocina Equipada" },
+      { icon: <FaTv />, name: "Televisión" },
+      { icon: <MdBalcony />, name: "Balcón" },
+      { icon: <MdLocalLaundryService />, name: "Lavaplatos" },
+      { icon: <PiHairDryerBold />, name: "Secador de Cabello" },
+      { icon: <FaDog />, name: "Mascotas Permitidas" },
+      { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
+    ],
+    familyServices: [
+      "Gimnasio", "Parqueadero", "Piscina para adultos y adolescentes",
+      "Parque acuático para niños", "Piscina para niños y bebés",
+      "Zona de juegos infantiles", "Jacuzzi", "Spa",
+      "Baño turco y sauna", "Barbacoa", "Pista de squash",
+      "Zona de ping-pong", "Mesa de juegos y mesa de billar", "Salón social",
+    ],
+  },
+  en: {
+    apartmentName: "Apartment in Santa Marta",
+    subtitle: "Just 2 minutes from the peaceful beaches of Cabo Tortuga",
+    galleryAlt: (i) => `Apartment ${i + 1}`,
+    thumbAlt: (i) => `Thumbnail ${i + 1}`,
+    servicesTitle: "Services & Amenities",
+    roomServicesTitle: "Room Services",
+    familyServicesTitle: "Resort Amenities",
+    contactTitle: "Location & Contact",
+    whatsappBtn: "Book via WhatsApp",
+    footer: "All rights reserved.",
+    address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
+    modalTitle: "Warning",
+    modalWarning: "⚠️ Anti-scam:",
+    modalWarningText: "No advance payments will be requested.",
+    modalCancel: "Cancel",
+    modalContinue: "Continue",
+    roomServices: [
+      { icon: <FaBed />, name: <>2 Beds <br />4 Guests</> },
+      { icon: <FaShower />, name: "Private Bathroom" },
+      { icon: <FaWifi />, name: "WiFi" },
+      { icon: <FaSnowflake />, name: "Air Conditioning" },
+      { icon: <MdKitchen />, name: "Equipped Kitchen" },
+      { icon: <FaTv />, name: "Television" },
+      { icon: <MdBalcony />, name: "Balcony" },
+      { icon: <MdLocalLaundryService />, name: "Dishwasher" },
+      { icon: <PiHairDryerBold />, name: "Hair Dryer" },
+      { icon: <FaDog />, name: "Pets Allowed" },
+      { icon: <IoLogoNoSmoking />, name: "No Smoking" },
+    ],
+    familyServices: [
+      "Gym", "Parking", "Pool for adults and teens",
+      "Water park for kids", "Pool for kids and babies",
+      "Children's playground", "Jacuzzi", "Spa",
+      "Turkish bath and sauna", "BBQ", "Squash court",
+      "Ping-pong area", "Game tables and billiards", "Social hall",
+    ],
+  },
+};
+
+function detectLang() {
+  const stored = localStorage.getItem('delventto-lang');
+  if (stored) return stored;
+  const browser = (navigator.language || 'es').toLowerCase();
+  return browser.startsWith('en') ? 'en' : 'es';
+}
+
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [thumbnailScroll, setThumbnailScroll] = useState(0);
   const [isSecureModalOpen, setIsSecureModalOpen] = useState(false);
+  const [lang, setLang] = useState(detectLang);
   const thumbnailsContainerRef = useRef(null);
   const touchStartX = useRef(null);
+  const t = translations[lang];
+
+  const toggleLang = () => {
+    const newLang = lang === 'es' ? 'en' : 'es';
+    setLang(newLang);
+    localStorage.setItem('delventto-lang', newLang);
+  };
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -88,56 +178,27 @@ function App() {
     touchStartX.current = null;
   };
 
-  const apartmentData = {
-    name: "Apartamento en Santa Marta",
-    images: [
-      img1, img2, img3, img4, img6, img9, img10, img13, img14, img15,
-      img16, img18, img19, img20, img21 , img22, img23,img25,img26,img27,
-      // Zonas Comunes
-      img30,img32,img33,img34,img35,img36,img37,img38,img39,img40,img41
-    ],
-    services: [
-      { icon: <FaBed />, name: <>2 Camas <br />4 Personas</> },
-      { icon: <FaShower />, name: "Baño privado" },
-      { icon: <FaWifi />, name: "WiFi" },
-      { icon: <FaSnowflake />, name: "Aire Acondicionado" },
-      { icon: <MdKitchen />, name: "Cocina Equipada" },
-      { icon: <FaTv />, name: "Televisión" },
-      { icon: <FaParking />, name: "Parqueadero" },
-      { icon: <FaSwimmingPool />, name: "Piscina" },
-      // { icon: <GiWashingMachine />, name: "Lavadora" },
-      // { icon: <IoMdPlayCircle />, name: "Parque Infantil" },
-      { icon: <FaDog />, name: "Mascotas Permitidas" },
-      { icon: <FaDumbbell />, name: "Gimnasio" },
-      { icon: <FaSpa />, name: "Sauna" },
-      { icon: <IoLogoNoSmoking />, name: "Prohibido Fumar" },
-      { icon: <MdBalcony />, name: "Balcón" },
-      // { icon: <GiWaves />, name: "Vista al Mar" },
-      { icon: <MdBeachAccess />, name: "Cerca de la Playa" },
-      { icon: <FaMapMarkerAlt />, name: "Ubicación Privilegiada" },
-      // { icon: <FaPhone />, name: "Teléfono" },
-      // { icon: <FaWhatsapp />, name: "WhatsApp" },
-      // { icon: <FaTelegram />, name: "Telegram" },
-      // { icon: <FaInstagram />, name: "Instagram" },
-      { icon: <MdLocalLaundryService />, name: "Lavaplatos" },
-      { icon: <PiHairDryerBold  />, name: "Secador de Cabello" },
-    ],
-    location: {
-      address: "Cabo Tortuga - Pozos Colorados, Santa Marta",
-      phone: decode(PHONE_B64),
-      whatsappMessage: decode(MSG_B64)
-    }
+  const images = [
+    img1, img2, img3, img4, img6, img9, img10, img13, img14,
+    img16, img18, img19, img20, img21, img22, img23, img25, img26, img27,
+    // Zonas Comunes
+    img30, img32, img33, img34, img35, img36, img37, img38, img39, img40, img41
+  ];
+
+  const locationData = {
+    phone: decode(PHONE_B64),
+    whatsappMessage: decode(MSG_B64),
   };
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === apartmentData.images.length - 1 ? 0 : prevIndex + 1
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? apartmentData.images.length - 1 : prevIndex - 1
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
@@ -199,7 +260,7 @@ function App() {
   const closeSecureModal = () => setIsSecureModalOpen(false);
 
   const openWhatsApp = () => {
-    const url = `https://wa.me/${apartmentData.location.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(apartmentData.location.whatsappMessage)}`;
+    const url = `https://wa.me/${locationData.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(locationData.whatsappMessage)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     setIsSecureModalOpen(false);
   };
@@ -207,9 +268,12 @@ function App() {
   return (
     <div className="App">
       <section className="hero-section">
+        <button className="lang-switch" onClick={toggleLang} aria-label="Switch language">
+          {lang === 'es' ? '🇬🇧 EN' : '🇨🇴 ES'}
+        </button>
         <div className="container">
-          <h1 className="apartment-name">{apartmentData.name}</h1>
-          <p className="apartment-subtitle">A solo 2 minutos de las tranquilas playas de Cabo Tortuga</p>
+          <h1 className="apartment-name">{t.apartmentName}</h1>
+          <p className="apartment-subtitle">{t.subtitle}</p>
         </div>
       </section>
 
@@ -219,8 +283,8 @@ function App() {
             <button className="gallery-btn prev" onClick={prevImage}>❮</button>
             <div className="main-image" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <img 
-                src={apartmentData.images[currentImageIndex]} 
-                alt={`Apartamento ${currentImageIndex + 1}`}
+                src={images[currentImageIndex]} 
+                alt={t.galleryAlt(currentImageIndex)}
               />
             </div>
             <button className="gallery-btn next" onClick={nextImage}>❯</button>
@@ -237,13 +301,13 @@ function App() {
               <div 
                 className="thumbnails" 
               >
-                {apartmentData.images.map((image, index) => (
+                {images.map((image, index) => (
                   <div 
                     key={index}
                     className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                     onClick={() => goToImage(index)}
                   >
-                    <img src={image} alt={`Miniatura ${index + 1}`} />
+                    <img src={image} alt={t.thumbAlt(index)} />
                   </div>
                 ))}
               </div>
@@ -261,13 +325,22 @@ function App() {
 
       <section className="services-section">
         <div className="container">
-          <h2>Servicios y Comodidades</h2>
+          <h2>{t.servicesTitle}</h2>
+
+          <h3 className="services-subtitle">{t.roomServicesTitle}</h3>
           <div className="services-grid">
-            {apartmentData.services.map((service, index) => (
+            {t.roomServices.map((service, index) => (
               <div key={index} className="service-card">
                 <span className="service-icon">{service.icon}</span>
                 <p className="service-name">{service.name}</p>
               </div>
+            ))}
+          </div>
+
+          <h3 className="services-subtitle">{t.familyServicesTitle}</h3>
+          <div className="family-services">
+            {t.familyServices.map((item, index) => (
+              <div key={index} className="family-service-item">{item}</div>
             ))}
           </div>
         </div>
@@ -275,44 +348,60 @@ function App() {
 
       <section className="contact-section">
         <div className="container">
-          <h2>Ubicación y Contacto</h2>
+          <h2>{t.contactTitle}</h2>
           <div className="contact-content">
             <div className="location-info">
-              <div className="info-item">
-                <FaMapMarkerAlt className="info-icon" />
-                <p>{apartmentData.location.address}</p>
+              <div className="service-card location-card">
+                <span className="service-icon"><FaMapMarkerAlt /></span>
+                <p className="service-name">{t.address}</p>
               </div>
-              {/* <div className="info-item">
-                <FaPhone className="info-icon" />
-                <a href={`tel:${apartmentData.location.phone}`}>{apartmentData.location.phone}</a>
-              </div> */}
+              <div className="map-embed">
+                <div className="map-clip">
+                  <iframe
+                    title="Google Maps - Delventto"
+                    src="https://maps.google.com/maps?q=Cabo+Tortuga+Pozos+Colorados+Santa+Marta&z=15&output=embed&iwloc=near"
+                    width="100%"
+                    height="150"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+                <a
+                  className="map-link"
+                  href="https://www.google.com/maps?q=Cabo+Tortuga+Pozos+Colorados+Santa+Marta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {lang === 'es' ? 'Ver en Google Maps' : 'View on Google Maps'} ↗
+                </a>
+              </div>
             </div>
               <button className="whatsapp-btn" onClick={handleWhatsAppClick}>
-                Reservar por WhatsApp
+                {t.whatsappBtn}
               </button>
           </div>
         </div>
       </section>
 
       <footer className="footer">
-        <p>&copy; 2025 Delventto. Todos los derechos reservados.</p>
+        <p>&copy; 2026 Delventto. {t.footer}</p>
       </footer>
 
       {isSecureModalOpen && (
         <div className="secure-modal-overlay" onClick={closeSecureModal}>
           <div className="secure-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="secure-modal-close" onClick={closeSecureModal} aria-label="Cerrar">&times;</button>
-            <h3 className="secure-modal-title">Advertencia</h3>
-            <p className="secure-modal-subtitle">Warning</p>
+            <button className="secure-modal-close" onClick={closeSecureModal} aria-label={t.modalCancel}>&times;</button>
+            <h3 className="secure-modal-title">{t.modalTitle}</h3>
             <div className="secure-modal-warnings">
-              <p><strong>⚠️ Antiestafa / Anti-scam:</strong></p>
+              <p><strong>{t.modalWarning}</strong></p>
               <ul>
-                <li>Nunca se solicitarán pagos por anticipado.<br/><em>No advance payments will be requested.</em></li>
+                <li>{t.modalWarningText}</li>
               </ul>
             </div>
             <div className="secure-modal-actions">
-              <button className="secure-modal-btn secure-modal-cancel" onClick={closeSecureModal}>Cancelar / Cancel</button>
-              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar / Continue</button>
+              <button className="secure-modal-btn secure-modal-cancel" onClick={closeSecureModal}>{t.modalCancel}</button>
+              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>{t.modalContinue}</button>
             </div>
           </div>
         </div>
