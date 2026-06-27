@@ -302,17 +302,17 @@ function App() {
         <div className="secure-modal-overlay" onClick={closeSecureModal}>
           <div className="secure-modal" onClick={(e) => e.stopPropagation()}>
             <button className="secure-modal-close" onClick={closeSecureModal} aria-label="Cerrar">&times;</button>
-            <h3 className="secure-modal-title">Verifica el contacto oficial</h3>
-            <p className="secure-modal-subtitle">Verify the official contact</p>
+            <h3 className="secure-modal-title">Advertencia</h3>
+            <p className="secure-modal-subtitle">Warning</p>
             <div className="secure-modal-warnings">
               <p><strong>⚠️ Antiestafa / Anti-scam:</strong></p>
               <ul>
-                <li>Delventto nunca solicitará pagos por anticipado ni transferencias a terceros.<br/><em>Delventto will never request advance payments or transfers to third parties.</em></li>
+                <li>Nunca se solicitarán pagos por anticipado.<br/><em>No advance payments will be requested.</em></li>
               </ul>
             </div>
             <div className="secure-modal-actions">
               <button className="secure-modal-btn secure-modal-cancel" onClick={closeSecureModal}>Cancelar / Cancel</button>
-              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar a WhatsApp</button>
+              <button className="secure-modal-btn secure-modal-confirm" onClick={openWhatsApp}>Continuar / Continue</button>
             </div>
           </div>
         </div>
