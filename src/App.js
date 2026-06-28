@@ -369,7 +369,7 @@ function App() {
                 </div>
                 <a
                   className="map-link"
-                  href="https://www.google.com/maps?q=Cabo+Tortuga+Pozos+Colorados+Santa+Marta"
+                  href="https://www.google.com/maps/place/Playa+cabo+tortuga/@11.172476,-74.2369208,17z/data=!4m10!1m2!2m1!1sCabo+Tortuga+Pozos+Colorados+Santa+Marta!3m6!1s0x8ef4f76d5b86efbf:0xcf9e35e669e7aeb8!8m2!3d11.173728!4d-74.2351794!15sCihDYWJvIFRvcnR1Z2EgUG96b3MgQ29sb3JhZG9zIFNhbnRhIE1hcnRhkgEMcHVibGljX2JlYWNo4AEA!16s%2Fg%2F11j8_rrm99?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
