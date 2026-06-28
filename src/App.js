@@ -39,9 +39,8 @@ import img27 from './assets/images/27.png';
 // Zonas Comunes
 
 import img30 from './assets/images/30.webp';
-import img32 from './assets/images/32.webp';
+import img31 from './assets/images/31.webp';
 import img33 from './assets/images/33.webp';
-import img34 from './assets/images/34.webp';
 import img35 from './assets/images/35.webp';
 import img36 from './assets/images/36.webp';
 import img37 from './assets/images/37.webp';
@@ -182,7 +181,7 @@ function App() {
     img1, img2, img3, img4, img6, img9, img10, img13, img14,
     img16, img18, img19, img20, img21, img22, img23, img25, img26, img27,
     // Zonas Comunes
-    img30, img32, img33, img34, img35, img36, img37, img38, img39, img40, img41
+    img30, img31, img33, img35, img36, img37, img38, img39, img40, img41
   ];
 
   const locationData = {
