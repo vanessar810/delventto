@@ -28,7 +28,7 @@ body {
   color: white;
   padding: 20px 20px;
   text-align: center;
-  
+  position: relative;
 }
 
 .apartment-name {
@@ -206,6 +206,28 @@ body {
   background: linear-gradient(180deg, #f0f8ff 0%, #ffffff 100%);
 }
 
+.lang-switch {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  background: linear-gradient(135deg, #0083b0 0%, #00b4db 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 131, 176, 0.3);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.lang-switch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 131, 176, 0.45);
+}
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -266,18 +288,19 @@ font-size: 2.5rem;
 .family-services {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px 30px;
+  gap: 2px 30px;
   max-width: 700px;
   margin: 0 auto;
   justify-items: start;
 }
 
 .family-service-item {
-  padding: 8px 12px 8px 24px;
+  padding: 1px 12px 1px 24px;
   position: relative;
   font-size: 1rem;
   color: #555;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .family-service-item::before {
@@ -295,29 +318,65 @@ font-size: 2.5rem;
 }
 
 .contact-content {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   text-align: center;
 }
 
 .location-info {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.info-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-  color: #555;
-  font-weight: 500;
-   opacity: 0.9;
+.location-card {
+  max-width: 400px;
+  margin: 0 auto 20px auto;
 }
 
-.info-icon {
-  font-size: 1.8rem;
+.map-embed {
+  margin: 0 auto 20px auto;
+  max-width: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 131, 176, 0.15);
+  border: 3px solid #00b4db;
+}
+
+.map-clip {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+  background: #e8eef3;
+}
+
+.map-clip iframe {
+  position: absolute;
+  top: -45px;
+  left: 0;
+  width: calc(100% + 50px);
+  height: 225px;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+  transition: filter 0.3s ease;
+}
+
+.map-embed:hover .map-clip iframe {
+  filter: grayscale(0%) contrast(1);
+}
+
+.map-link {
+  display: block;
+  background: linear-gradient(135deg, #0083b0 0%, #00b4db 100%);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.map-link:hover {
+  opacity: 0.9;
 }
 
 .whatsapp-btn {
@@ -381,6 +440,14 @@ font-size: 2.5rem;
   .services-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
+  }
+
+  .lang-switch {
+    position: static;
+    display: block;
+    margin: 0 auto 12px auto;
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 
   .service-card {
