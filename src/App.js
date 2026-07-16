@@ -38,16 +38,16 @@ import img27 from './assets/images/27.png';
 
 // Zonas Comunes
 
-import img30 from './assets/images/30.webp';
-import img31 from './assets/images/31.webp';
-import img33 from './assets/images/33.webp';
-import img35 from './assets/images/35.webp';
-import img36 from './assets/images/36.webp';
-import img37 from './assets/images/37.webp';
-import img38 from './assets/images/38.webp';
-import img39 from './assets/images/39.jpeg';
-import img40 from './assets/images/40.jpeg';
-import img41 from './assets/images/41.jpeg';
+import img30 from './assets/images/30.png';
+import img31 from './assets/images/31.png';
+import img33 from './assets/images/33.png';
+import img35 from './assets/images/35.png';
+import img36 from './assets/images/36.png';
+import img37 from './assets/images/37.png';
+import img38 from './assets/images/38.png';
+import img39 from './assets/images/39.png';
+import img40 from './assets/images/40.png';
+import img41 from './assets/images/41.png';
 
 const decode = (b64) =>
   typeof window === 'undefined'
